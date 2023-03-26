@@ -1,0 +1,84 @@
+# cadastro pet shoop
+
+# tela inicial e cadastro 
+def principal():
+    print('(1) Adicionar\n (2) Listar\n (3) Excluir\n (4) Atualizar\n (5) Sair\n BEM VINDO AO PETSHOOP! INDIQUE SUA OPÇÃO: ')
+
+# as operações estam dando entrada para o usuario inserir uma opçaõ para seu cadastro.
+# o input resce o valor vazio para que assim receba o valor indicado pelo usuário dando assim uma opção para função
+    opcao=int(input())
+    while opcao!= 5:
+    
+        if opcao == 1:
+            adicionar()
+
+        elif opcao == 2:
+            listar()
+
+        elif opcao == 3:
+            excluir()
+            
+        elif opcao == 4:
+            atualizar()
+
+        elif opcao == 5:
+            sair()
+
+        else:
+            print("Opção inexistente!")
+            opcao=int(input('(1) Adicionar\n (2) Listar\n (3) Excluir\n (4) Atualizar\n (5) Sair\n BEM VINDO AO PETSHOOP! INDIQUE SUA OPÇÃO: '))
+
+
+from modelo import Dono
+# donos se refere a um dicionario para guardar diferentes informação que possam ser alteradas
+donos = {}
+    # dentro da função dono_animal o usuario vai ser interrogado com o complemento de seus dados
+def dono_animal():
+    nome = (input(" Seu nome? "))
+    telefone = int(input(" Adicione um telefone? "))
+    email  = (input("Entre com seu e-mail? ")) 
+    tipo = (input(" Qual seu animal? "))
+    raca = (input(" A raça de seu animal? "))
+    tamanho_animal = (input(" Qual o tamanho? "))
+    
+    # Está voltando para o cadastro do dono com a criação de um objeto
+    return Dono(nome, telefone, email, tipo, raca, tamanho_animal)
+    
+
+def adicionar():
+    dono_novo = dono_animal()
+    if dono_novo.email not in donos:
+       donos[dono_novo.email] = dono_novo
+    else:
+        print(" Este e-mail já está em uso...") 
+        
+        # a função adicionar está utilizando a função dono_animal para criar o seu cadastro e também verifica se o não
+        #existe outro cadastro com a mesma utilização de email.
+
+def listar():
+    email = input(" Qual devemos listar? ")
+    for email , Dono in donos.items():
+        print("\n", email, Dono.nome , Dono.telefone, Dono.tipo, Dono.raca, Dono.tamanho_animal, "\n")
+# Na função listar exibe a lista de emails que foram fornecidos e também deverá mostrar os demais itens citados no 1print
+
+def excluir():
+    email = input(" Informe o email excluído: ")
+    if email in donos:
+        Dono = donos[email]
+        print(" Este e-mail vai ser excluído: ", Dono.nome)
+        del donos[email]
+
+        return (principal)
+    
+def atualizar():
+    donos = dono_animal()
+    print("Vamos atualizar seu cadastro? ")
+    for email, Dono in donos.items():
+        print(email.nome)
+
+
+    
+def sair():
+    pass
+          
+principal()
